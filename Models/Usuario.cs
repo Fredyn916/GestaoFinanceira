@@ -11,7 +11,7 @@ public class Usuario
     public String CPF { get; set; }
     public double RendaMensal { get; set; } // Calculada a partir da soma das Receitas
     public double GastoMensal { get; set; } // Calculado a partir da soma das Despesas
-    public double isStable { get; set; } // True se a subtração da Renda pelo Gasto resultar positivo
+    public bool isStable { get; set; } // True se a subtração da Renda pelo Gasto resultar positivo (0 false; 1 true)
     public String Email { get; set; }
     public String Password { get; set; }
 }
