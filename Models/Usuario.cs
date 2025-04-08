@@ -5,6 +5,7 @@ namespace Models;
 [Table("Usuarios")]
 public class Usuario
 {
+    [Key]
     public int Id { get; set; }
     public String Nome { get; set; }
     public int Idade { get; set; }
