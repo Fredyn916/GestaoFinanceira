@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using Models.DTO;
+using Models.DTO.UsuarioDTO;
 using Services.Interface;
 
 
@@ -21,7 +21,7 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPost("PostUsuario")]
-    public async Task<Usuario> Post(UsuarioDTO usuarioDTO)
+    public async Task<ResponseUsuarioDTO> Post(CreateUsuarioDTO usuarioDTO)
     {
         try
         {
@@ -36,7 +36,7 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpGet("GetUsuario")]
-    public async Task<List<Usuario>> Get()
+    public async Task<List<ResponseUsuarioDTO>> Get()
     {
         try
         {
@@ -49,7 +49,7 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpGet("GetByIdUsuario")]
-    public async Task<Usuario> GetById(int id)
+    public async Task<ResponseUsuarioDTO> GetById(int id)
     {
         try
         {
@@ -90,7 +90,7 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPost("LoginUsuario")]
-    public async Task<Usuario> Login(String email, String password)
+    public async Task<ResponseUsuarioDTO> Login(String email, String password)
     {
         try
         {

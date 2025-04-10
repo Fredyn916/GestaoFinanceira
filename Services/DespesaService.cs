@@ -1,5 +1,6 @@
 ﻿using DAO.Interface;
 using Models;
+using Models.DTO.FinancaDTO;
 using Services.Interface;
 
 namespace Services;
@@ -19,19 +20,19 @@ public class DespesaService : IDespesaService
         await _despesaRepository.Post(despesa);
     }
 
-    public async Task<List<Despesa>> Get()
+    public async Task<List<ResponseFinancaDTO>> Get()
     {
         return await _despesaRepository.Get();
     }
 
-    public async Task<Despesa> GetById(int id)
+    public async Task<ResponseFinancaDTO?> GetById(int id)
     {
         return await _despesaRepository.GetById(id);
     }
 
-    public async Task Put(Despesa editDespesa)
+    public async Task Put(Despesa despesa)
     {
-        await _despesaRepository.Put(editDespesa);
+        await _despesaRepository.Put(despesa);
     }
 
     public async Task Delete(int id)

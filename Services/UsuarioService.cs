@@ -1,5 +1,6 @@
 ﻿using DAO.Interface;
 using Models;
+using Models.DTO.UsuarioDTO;
 using Services.Interface;
 
 namespace Services;
@@ -13,24 +14,24 @@ public class UsuarioService : IUsuarioService
         _usuarioRepository = usuarioRepository;
     }
 
-    public async Task<Usuario> Post(Usuario usuario)
+    public async Task<ResponseUsuarioDTO> Post(Usuario usuario)
     {
         return await _usuarioRepository.Post(usuario);
     }
 
-    public async Task<List<Usuario>> Get()
+    public async Task<List<ResponseUsuarioDTO>> Get()
     {
         return await _usuarioRepository.Get();
     }
 
-    public async Task<Usuario> GetById(int id)
+    public async Task<ResponseUsuarioDTO?> GetById(int id)
     {
         return await _usuarioRepository.GetById(id);
     }
 
-    public async Task Put(Usuario editCliente)
+    public async Task Put(Usuario usuario)
     {
-        await _usuarioRepository.Put(editCliente);
+        await _usuarioRepository.Put(usuario);
     }
 
     public async Task Delete(int id)
@@ -38,7 +39,7 @@ public class UsuarioService : IUsuarioService
         await _usuarioRepository.Delete(id);
     }
 
-    public async Task<Usuario> Login(String email, String password)
+    public async Task<ResponseUsuarioDTO> Login(String email, String password)
     {
         return await _usuarioRepository.Login(email, password);
     }

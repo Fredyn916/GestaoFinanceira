@@ -1,55 +1,58 @@
-﻿using DAO.Interface;
-using Dapper.Contrib.Extensions;
-using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using DAO.Interface;
 using Models;
-using System.Data.SQLite;
+using Models.DTO.FinancaDTO;
+using Supabase;
 
 namespace DAO;
 
 public class ReceitaRepository : IReceitaRepository
 {
-    private readonly string _connectionString;
+    private readonly Client _client;
+    private readonly IMapper _mapper;
 
-    public ReceitaRepository(IConfiguration connection)
+    public ReceitaRepository(Client client, IMapper mapper)
     {
-        _connectionString = connection.GetConnectionString("DefaultConnection");
+        _client = client;
+        _mapper = mapper;
     }
 
     public async Task Post(Receita receita)
     {
-        using var connection = new SQLiteConnection(_connectionString);
-
-        await connection.InsertAsync<Receita>(receita);
+        var response = await _client.From<Receita>().Insert(receita);
     }
 
-    public async Task<List<Receita>> Get()
+    public async Task<List<ResponseFinancaDTO>> Get()
     {
-        using var connection = new SQLiteConnection(_connectionString);
+        List<ResponseFinancaDTO> receitas = new List<ResponseFinancaDTO>();
 
-        var receitas = await connection.GetAllAsync<Receita>();
-        return receitas.ToList();
+        var response = await _client.From<Receita>().Get();
+
+        foreach (var item in response.Models)
+        {
+            receitas.Add(_mapper.Map<ResponseFinancaDTO>(item));
+        }
+        return receitas;
     }
 
-    public async Task<Receita> GetById(int id)
+    public async Task<ResponseFinancaDTO> GetById(int id)
     {
-        using var connection = new SQLiteConnection(_connectionString);
+        var response = await _client.From<Receita>()
+           .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, id)
+           .Get();
 
-        return await connection.GetAsync<Receita>(id);
+        ResponseFinancaDTO receita = _mapper.Map<ResponseFinancaDTO>(response.Models.First());
+        return receita;
     }
 
-    public async Task Put(Receita editReceita)
+    public async Task Put(Receita receita)
     {
-        using var connection = new SQLiteConnection(_connectionString);
-
-        await connection.UpdateAsync<Receita>(editReceita);
+        await _client.From<Receita>().Update(receita);
     }
 
     public async Task Delete(int id)
     {
-        using var connection = new SQLiteConnection(_connectionString);
-
-        Receita receitaToRemove = GetById(id).Result;
-
-        await connection.DeleteAsync<Receita>(receitaToRemove);
+        var receita = _mapper.Map<Receita>(GetById(id).Result);
+        await _client.From<Receita>().Delete(receita);
     }
 }

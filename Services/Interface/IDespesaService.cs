@@ -1,12 +1,13 @@
 ﻿using Models;
+using Models.DTO.FinancaDTO;
 
 namespace Services.Interface;
 
 public interface IDespesaService
 {
     Task Post(Despesa despesa);
-    Task<List<Despesa>> Get();
-    Task<Despesa> GetById(int id);
-    Task Put(Despesa editDespesa);
+    Task<List<ResponseFinancaDTO>> Get();
+    Task<ResponseFinancaDTO?> GetById(int id);
+    Task Put(Despesa despesa);
     Task Delete(int id);
 }

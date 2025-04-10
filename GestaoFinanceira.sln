@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{51A3CACC-FAF7-4464-8203-E88527412B96}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{564510B9-3B0B-4BC9-9B7B-04357A220589}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{D8E3C497-D150-4225-8535-6082EB69F5C6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{332BE3D7-16FC-4BE7-A70E-D09FAF1E5689}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{D8E3C497-D150-4225-8535-6082EB69F5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8E3C497-D150-4225-8535-6082EB69F5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8E3C497-D150-4225-8535-6082EB69F5C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{332BE3D7-16FC-4BE7-A70E-D09FAF1E5689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{332BE3D7-16FC-4BE7-A70E-D09FAF1E5689}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{332BE3D7-16FC-4BE7-A70E-D09FAF1E5689}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{332BE3D7-16FC-4BE7-A70E-D09FAF1E5689}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

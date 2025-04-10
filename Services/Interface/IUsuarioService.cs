@@ -1,13 +1,14 @@
 ﻿using Models;
+using Models.DTO.UsuarioDTO;
 
 namespace Services.Interface;
 
 public interface IUsuarioService
 {
-    Task<Usuario> Post(Usuario usuario);
-    Task<List<Usuario>> Get();
-    Task<Usuario> GetById(int id);
-    Task Put(Usuario editUsuario);
+    Task<ResponseUsuarioDTO> Post(Usuario usuario);
+    Task<List<ResponseUsuarioDTO>> Get();
+    Task<ResponseUsuarioDTO?> GetById(int id);
+    Task Put(Usuario usuario);
     Task Delete(int id);
-    Task<Usuario> Login(String email, String password);
+    Task<ResponseUsuarioDTO> Login(String email, String password);
 }

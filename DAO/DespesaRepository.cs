@@ -1,55 +1,58 @@
-﻿using DAO.Interface;
-using Dapper.Contrib.Extensions;
-using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using DAO.Interface;
 using Models;
-using System.Data.SQLite;
+using Models.DTO.FinancaDTO;
+using Supabase;
 
 namespace DAO;
 
 public class DespesaRepository : IDespesaRepository
 {
-    private readonly string _connectionString;
+    private readonly Client _client;
+    private readonly IMapper _mapper;
 
-    public DespesaRepository(IConfiguration connection)
+    public DespesaRepository(Client client, IMapper mapper)
     {
-        _connectionString = connection.GetConnectionString("DefaultConnection");
+        _client = client;
+        _mapper = mapper;
     }
 
     public async Task Post(Despesa despesa)
     {
-        using var connection = new SQLiteConnection(_connectionString);
-
-        await connection.InsertAsync<Despesa>(despesa);
+        var response = await _client.From<Despesa>().Insert(despesa);
     }
 
-    public async Task<List<Despesa>> Get()
+    public async Task<List<ResponseFinancaDTO>> Get()
     {
-        using var connection = new SQLiteConnection(_connectionString);
+        List<ResponseFinancaDTO> despesas = new List<ResponseFinancaDTO>();
 
-        var despesas = await connection.GetAllAsync<Despesa>();
-        return despesas.ToList();
+        var response = await _client.From<Despesa>().Get();
+
+        foreach (var item in response.Models)
+        {
+            despesas.Add(_mapper.Map<ResponseFinancaDTO>(item));
+        }
+        return despesas;
     }
 
-    public async Task<Despesa> GetById(int id)
+    public async Task<ResponseFinancaDTO?> GetById(int id)
     {
-        using var connection = new SQLiteConnection(_connectionString);
+        var response = await _client.From<Despesa>()
+            .Filter("id", Supabase.Postgrest.Constants.Operator.Equals, id)
+            .Get();
 
-        return await connection.GetAsync<Despesa>(id);
+        ResponseFinancaDTO despesa = _mapper.Map<ResponseFinancaDTO>(response.Models.First());
+        return despesa;
     }
 
-    public async Task Put(Despesa editDespesa)
+    public async Task Put(Despesa despesa)
     {
-        using var connection = new SQLiteConnection(_connectionString);
-
-        await connection.UpdateAsync<Despesa>(editDespesa);
+        await _client.From<Despesa>().Update(despesa);
     }
 
     public async Task Delete(int id)
     {
-        using var connection = new SQLiteConnection(_connectionString);
-
-        Despesa despesaToRemove = GetById(id).Result;
-
-        await connection.DeleteAsync<Despesa>(despesaToRemove);
+        var despesa = _mapper.Map<Despesa>(GetById(id).Result);
+        await _client.From<Despesa>().Delete(despesa);
     }
 }

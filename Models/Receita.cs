@@ -1,15 +1,19 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 
 namespace Models;
 
-[Table("Receitas")]
-public class Receita
+[Table("receitas")]
+public class Receita : BaseModel
 {
-    [Key]
+    [PrimaryKey("id", false)]
     public int Id { get; set; }
+    [Column("identificacao")]
     public String Identificacao { get; set; }
+    [Column("valor")]
     public double Valor { get; set; } // Em reais (R$)
+    [Column("descricao")]
     public String Descricao { get; set; }
-    public bool isMonthly { get; set; } // True se for mensalmente fixa (0 false; 1 true)
+    [Column("usuario_id")]
     public int UsuarioId { get; set; }
 }

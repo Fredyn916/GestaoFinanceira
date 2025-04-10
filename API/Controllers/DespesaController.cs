@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTO;
 using Models;
 using Services.Interface;
+using Models.DTO.FinancaDTO;
 
 namespace API.Controllers;
 
@@ -20,7 +20,7 @@ public class DespesaController : ControllerBase
     }
 
     [HttpPost("PostDespesa")]
-    public async Task Post(FinancaDTO despesaDTO)
+    public async Task Post(CreateFinancaDTO despesaDTO)
     {
         try
         {
@@ -35,7 +35,7 @@ public class DespesaController : ControllerBase
     }
 
     [HttpGet("GetDespesa")]
-    public async Task<List<Despesa>> Get()
+    public async Task<List<ResponseFinancaDTO>> Get()
     {
         try
         {
@@ -48,7 +48,7 @@ public class DespesaController : ControllerBase
     }
 
     [HttpGet("GetByIdDespesa")]
-    public async Task<Despesa> GetById(int id)
+    public async Task<ResponseFinancaDTO> GetById(int id)
     {
         try
         {

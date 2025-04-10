@@ -3,7 +3,7 @@ using DAO.Interface;
 using Services;
 using Services.Interface;
 
-namespace API.DI;
+namespace API.Settings.DI;
 
 public static class DependencyInjection
 {

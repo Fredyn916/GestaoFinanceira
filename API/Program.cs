@@ -1,6 +1,6 @@
-using API.DI;
-using Config.AutoMapper;
-using Config.DataBase;
+using API.Settings.DI;
+using API.Settings.Supabase;
+using Settings.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +9,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-
 DependencyInjection.Inject(builder);
-
-DbLauncher.Initialize();
-
+SupabaseClient.Inject(builder);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirTudo",
