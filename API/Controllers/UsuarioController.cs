@@ -105,7 +105,7 @@ public class UsuarioController : ControllerBase
         }
     }
 
-    [HttpGet("UpdateReceitas")]
+    [HttpPut("UpdateReceitas")]
     public async Task<IActionResult> UpdateValorReceitas(int id)
     {
         try
@@ -119,12 +119,26 @@ public class UsuarioController : ControllerBase
         }
     }
 
-    [HttpGet("UpdateDespesas")]
+    [HttpPut("UpdateDespesas")]
     public async Task<IActionResult> UpdateValorDespesas(int id)
     {
         try
         {
             await _usuarioService.UpdateValorDespesas(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPut("UpdateEstabilidade")]
+    public async Task<IActionResult> CheckStability(int id)
+    {
+        try
+        {
+            await _usuarioService.CheckStability(id);
             return Ok();
         }
         catch (Exception e)

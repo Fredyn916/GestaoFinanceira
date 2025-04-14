@@ -13,4 +13,5 @@ public interface IUsuarioRepository
     Task<ResponseUsuarioDTO> Login(String email, String password);
     Task UpdateValorReceitas(int id);
     Task UpdateValorDespesas(int id);
+    Task CheckStability(int id);
 }

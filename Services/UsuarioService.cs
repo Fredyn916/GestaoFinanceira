@@ -53,4 +53,9 @@ public class UsuarioService : IUsuarioService
     {
         await _usuarioRepository.UpdateValorDespesas(id);
     }
+
+    public async Task CheckStability(int id)
+    {
+        await _usuarioRepository.CheckStability(id);
+    }
 }

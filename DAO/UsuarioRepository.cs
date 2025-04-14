@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DAO.Interface;
 using Models;
-using Models.DTO.FinancaDTO;
 using Models.DTO.UsuarioDTO;
 using Supabase;
 
@@ -112,5 +111,18 @@ public class UsuarioRepository : IUsuarioRepository
         usuario.GastoMensal = somaValores;
 
         Put(usuario);
+    }
+
+    public async Task CheckStability(int id)
+    {
+        Usuario user = _mapper.Map<Usuario>(await GetById(id));
+
+        double despesaParaConta = user.GastoMensal * -1;
+
+        var resultado = user.RendaMensal - despesaParaConta;
+
+        user.isStable = resultado > 0 ? true : false;
+
+        Put(user);
     }
 }
