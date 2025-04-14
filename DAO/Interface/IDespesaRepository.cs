@@ -10,4 +10,5 @@ public interface IDespesaRepository
     Task<ResponseFinancaDTO?> GetById(int id);
     Task Put(Despesa despesa);
     Task Delete(int id);
+    Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id);
 }

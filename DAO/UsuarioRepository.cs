@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DAO.Interface;
 using Models;
+using Models.DTO.FinancaDTO;
 using Models.DTO.UsuarioDTO;
 using Supabase;
 
@@ -10,11 +11,15 @@ public class UsuarioRepository : IUsuarioRepository
 {
     private readonly Client _client;
     private readonly IMapper _mapper;
+    private readonly IReceitaRepository _receitaRepository;
+    private readonly IDespesaRepository _despesaRepository;
 
-    public UsuarioRepository(Client client, IMapper mapper)
+    public UsuarioRepository(Client client, IMapper mapper, IReceitaRepository receitaRepository, IDespesaRepository despesaRepository)
     {
         _client = client;
         _mapper = mapper;
+        _receitaRepository = receitaRepository;
+        _despesaRepository = despesaRepository;
     }
 
     public async Task<ResponseUsuarioDTO> Post(Usuario usuario)
@@ -69,5 +74,43 @@ public class UsuarioRepository : IUsuarioRepository
             }
         }
         return null;
+    }
+
+    public async Task UpdateValorReceitas(int id)
+    {
+        var receitas = await _receitaRepository.GetByUsuarioId(id);
+
+        double somaValores = 0.0;
+
+        foreach (var item in receitas)
+        {
+            somaValores += item.Valor;
+        }
+
+        var usuario = _mapper.Map<Usuario>(await GetById(id));
+
+        usuario.RendaMensal = somaValores;
+
+        Put(usuario);
+    }
+
+    public async Task UpdateValorDespesas(int id)
+    {
+        var despesas = await _despesaRepository.GetByUsuarioId(id);
+
+        double somaValores = 0.0;
+
+        foreach (var item in despesas)
+        {
+            somaValores += item.Valor;
+        }
+
+        if (somaValores > 0) somaValores = somaValores * -1;
+
+        var usuario = _mapper.Map<Usuario>(await GetById(id));
+
+        usuario.GastoMensal = somaValores;
+
+        Put(usuario);
     }
 }

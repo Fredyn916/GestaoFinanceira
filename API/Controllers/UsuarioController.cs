@@ -104,4 +104,32 @@ public class UsuarioController : ControllerBase
             throw new Exception(e.Message);
         }
     }
+
+    [HttpGet("UpdateReceitas")]
+    public async Task<IActionResult> UpdateValorReceitas(int id)
+    {
+        try
+        {
+            await _usuarioService.UpdateValorReceitas(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("UpdateDespesas")]
+    public async Task<IActionResult> UpdateValorDespesas(int id)
+    {
+        try
+        {
+            await _usuarioService.UpdateValorDespesas(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

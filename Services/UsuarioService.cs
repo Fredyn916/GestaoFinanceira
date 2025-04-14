@@ -43,4 +43,14 @@ public class UsuarioService : IUsuarioService
     {
         return await _usuarioRepository.Login(email, password);
     }
+
+    public async Task UpdateValorReceitas(int id)
+    {
+        await _usuarioRepository.UpdateValorReceitas(id);
+    }
+
+    public async Task UpdateValorDespesas(int id)
+    {
+        await _usuarioRepository.UpdateValorDespesas(id);
+    }
 }

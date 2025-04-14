@@ -11,4 +11,6 @@ public interface IUsuarioRepository
     Task Put(Usuario usuario);
     Task Delete(int id);
     Task<ResponseUsuarioDTO> Login(String email, String password);
+    Task UpdateValorReceitas(int id);
+    Task UpdateValorDespesas(int id);
 }

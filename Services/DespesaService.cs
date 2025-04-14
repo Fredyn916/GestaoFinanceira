@@ -39,4 +39,9 @@ public class DespesaService : IDespesaService
     {
         await _despesaRepository.Delete(id);
     }
+
+    public async Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id)
+    {
+        return await _despesaRepository.GetByUsuarioId(id);
+    }
 }

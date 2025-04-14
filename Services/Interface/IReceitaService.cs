@@ -10,4 +10,5 @@ public interface IReceitaService
     Task<ResponseFinancaDTO?> GetById(int id);
     Task Put(Receita receita);
     Task Delete(int id);
+    Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id);
 }

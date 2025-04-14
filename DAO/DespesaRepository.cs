@@ -55,4 +55,18 @@ public class DespesaRepository : IDespesaRepository
         var despesa = _mapper.Map<Despesa>(GetById(id).Result);
         await _client.From<Despesa>().Delete(despesa);
     }
+
+    public async Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id)
+    {
+        List<ResponseFinancaDTO> despesasResponse = new List<ResponseFinancaDTO>();
+
+        var despesas = await Get();
+
+        foreach (var item in despesas)
+        {
+            if (item.UsuarioId == id) despesasResponse.Add(item);
+        }
+
+        return despesasResponse;
+    }
 }

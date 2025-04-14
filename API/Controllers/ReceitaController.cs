@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Interface;
 using Models.DTO.FinancaDTO;
+using Services;
 
 namespace API.Controllers;
 
@@ -85,6 +86,19 @@ public class ReceitaController : ControllerBase
         catch (Exception e)
         {
             return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("GetByUsuarioIdReceita")]
+    public async Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id)
+    {
+        try
+        {
+            return await _receitaService.GetByUsuarioId(id);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
         }
     }
 }

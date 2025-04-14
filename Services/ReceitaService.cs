@@ -1,4 +1,5 @@
-﻿using DAO.Interface;
+﻿using DAO;
+using DAO.Interface;
 using Models;
 using Models.DTO.FinancaDTO;
 using Services.Interface;
@@ -37,5 +38,10 @@ public class ReceitaService : IReceitaService
     public async Task Delete(int id)
     {
         await _receitaRepository.Delete(id);
+    }
+
+    public async Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id)
+    {
+        return await _receitaRepository.GetByUsuarioId(id);
     }
 }

@@ -87,4 +87,17 @@ public class DespesaController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet("GetByUsuarioIdDespesa")]
+    public async Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id)
+    {
+        try
+        {
+            return await _despesaService.GetByUsuarioId(id);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
 }

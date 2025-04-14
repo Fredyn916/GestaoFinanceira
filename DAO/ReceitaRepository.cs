@@ -55,4 +55,18 @@ public class ReceitaRepository : IReceitaRepository
         var receita = _mapper.Map<Receita>(GetById(id).Result);
         await _client.From<Receita>().Delete(receita);
     }
+
+    public async Task<List<ResponseFinancaDTO>> GetByUsuarioId(int id)
+    {
+        List<ResponseFinancaDTO> receitasResponse = new List<ResponseFinancaDTO>();
+
+        var receitas = await Get();
+
+        foreach (var item in receitas)
+        {
+            if (item.UsuarioId == id) receitasResponse.Add(item);
+        }
+
+        return receitasResponse;
+    }
 }
